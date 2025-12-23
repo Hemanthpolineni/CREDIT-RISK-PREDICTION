@@ -37,8 +37,18 @@ This project uses **Machine Learning** to predict creditworthiness based on appl
 ---
 
 ## 📂 Project Structure
+```text
+CREDIT-RISK-PREDICTION/
+|
+├── templates/
+│ └── index.html      # Frontend UI
+├── german_credit.csv # Dataset
+├── app.py            # Flask application
+├── training.py       # Model training pipeline
+├── credit_risk.pkl   # Trained ML model
+├── README.md         # Project documentation
+```
 ---
-
 ## 📊 Input Features Used
 
 | Feature | Description |
