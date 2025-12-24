@@ -31,25 +31,34 @@ def predict():
     
     }])
 
-    prediction = model.predict(input_data)[0]
-    probability  = model.predict_proba(input_data)[0][1]
+    pred = model.predict(input_data)[0]
 
-    if probability >= 0.8 : 
+    probs = model.predict_proba(input_data)[0]
+    classes = model.classes_
+
+    good_idx = list(classes).index(1)
+    probability = probs[good_idx]
+
+    if probability >= 0.8:
         risk_level = "LOW RISK"
-    elif probability >= 0.6 :
-        risk_level = "MEDIUM RISK"   
-    else :
-        risk_level = "HIGH RISK"     
+    elif probability >= 0.6:
+        risk_level = "MEDIUM RISK"
+    else:
+        risk_level = "HIGH RISK"
 
     credit_score = int(300 + probability * 550)
 
+    pred = 1 if probability >= 0.65 else 0
+
+    prediction_label = "Good Credit" if pred == 1 else "Bad Credit"
+
     return render_template(
-        "index.html",
-        prediction = "Good Credit " if prediction == 1 else "Bad Credit",
-        probability = round(probability,3),
-        risk_level = risk_level,
-        credit_score = credit_score
-    )        
+    "index.html",
+    prediction=prediction_label,
+    probability=round(probability, 3),
+    risk_level=risk_level,
+    credit_score=credit_score
+    )
 
 if __name__ == "__main__" :
     app.run(debug=True)
